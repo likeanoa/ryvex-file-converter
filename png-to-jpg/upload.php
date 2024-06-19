@@ -1,4 +1,8 @@
 <?php
+// Enable error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
     $uploadDir = 'uploads/';
     $filename = basename($_FILES['file']['name']);
@@ -22,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
             imagedestroy($image);
             echo json_encode(['success' => true, 'filepath' => $outputFilename]);
         } else {
+            imagedestroy($image);
             echo json_encode(['success' => false, 'message' => 'Failed to convert image to JPG']);
         }
     } else {
